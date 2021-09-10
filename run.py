@@ -98,6 +98,6 @@ def main():
     update_worksheet(new_surplus_data, "surplus")
 
 print("Welcome to Love Sandwiches Data Automation")
-main()
+#main()
 
 sales_columns = get_last_5_entries_sales()
