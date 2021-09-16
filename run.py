@@ -14,6 +14,7 @@ SHEET = GSPREAD_CLIENT.open('cookies_mania')
 STOCK = SHEET.worksheet('stock')
 SALES = SHEET.worksheet('sales')
 SURPLUS = SHEET.worksheet('surplus')
+PRICE = SHEET.worksheet('price')
 
 def start():
     """
@@ -30,7 +31,7 @@ def start():
     while True:
         choise = (input("Choose the number of the task you want to do: \n"))
         if choise == '1':
-            print("Taking you to Go Add new sales...\n")
+            print("Taking you to Add new sales...\n")
             get_sales_data()
             break
         elif choise == '2':
@@ -38,7 +39,7 @@ def start():
             view_all_stock()
             break
         elif choise == '3':
-            print("Taking you to Delete a contact...\n")
+            print("Taking you to View the prices list...\n")
             view_all_sales()
         elif choise == '4':
             print("Taking you to Search menu...\n")
@@ -74,6 +75,29 @@ def get_sales_data():
 
     return update_worksheet_sales(sales_data)
 
+def view_all_prices():
+    get_all = SHEET.worksheet("price").get_all_records()
+    for price in get_all:
+        print_all_price(price)
+    back_to_menu()
+
+def print_all_price(existing):
+    all_prices = []
+    for name, price in existing.items():
+        print(f'{name}: {price}')
+    print("-----------------------------------")
+    return all_prices
+
+def view_all_stock():
+    """
+    Function to get stock from google sheet
+    and show them as a list
+    """
+    get_all = STOCK.get_all_records()
+    for stock in get_all:
+        printing_all_stock(stock)
+    back_to_menu()
+
 def back_to_menu():
     """
     Instead of get the whole menu after every task, user get a question if
@@ -91,6 +115,7 @@ def back_to_menu():
             back_to_menu()
             break
         return False
+
 def validate_reset():
     """
     Function for user to validate to reset the worksheet
@@ -108,10 +133,10 @@ def validate_reset():
             print("Not a valid input, Try again!")
             break
         return False
+
 def reset_stock():
     """
-    When user want to reset all contacts and delete the worksheet.
-    All values clear, but the headers/titles appear on the first row again.
+    When user want to reset all stock and delete the worksheet.
     """
     print("delete all stock...\n")
     STOCK.clear()
@@ -154,9 +179,18 @@ def view_all_sales():
     Function to get all the sales from google sheet
     """
     get_all = SALES.get_all_records()
-    for contact in get_all:
+    for sales in get_all:
         printing_all_sales(sales)
     back_to_menu()
+
+def printing_all_sales(existing):
+    """
+    Function that takes all the existing sales from worksheet
+    """
+    sales = SHEET.worksheet("sales").get_all_values()
+    
+    print("-----------------------------------")
+    return sales
 
 def calculate_surplus_data(sales_row):
     """
@@ -175,6 +209,7 @@ def calculate_surplus_data(sales_row):
         surplus_data.append(surplus)
 
     return surplus_data
+    
 def validate_data(values):
     """
     Inside the try, converts all string values into integers.
