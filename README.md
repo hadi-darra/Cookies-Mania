@@ -103,6 +103,8 @@ This is what I want to implement in future on this app to make it more complete.
 
 [Back to Top](https://github.com/hadi-darra/Cookies-Mania)
 # Testing
+In this project it was difficult a little bit starting with something new like API and the deployemnt . Also dealing with Google worksheet , all these things were new ,
+but after trying and practiing on the commands they became less complicated 
 ## Validator Testing
 When I checked my code on  PEP8 it dosn't show any error.
 ![](https://github.com/hadi-darra/Cookies-Mania/blob/main/assets/wireframes/pep8online.png)
