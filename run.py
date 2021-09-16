@@ -29,27 +29,27 @@ def start():
                 6. Exit\n
                     """)
     while True:
-        choise = (input("Choose the number of the task you want to do: \n"))
-        if choise == '1':
+        choice = (input("Choose the number of the task you want to do: \n"))
+        if choice == '1':
             print("Taking you to Add new sales...\n")
             get_sales_data()
             break
-        elif choise == '2':
+        elif choice == '2':
             print("Taking you to Open the stock...\n")
             view_all_stock()
             break
-        elif choise == '3':
-            print("Taking you to View the prices list...\n")
+        elif choice == '3':
+            print("Taking you to View the sales list...\n")
             view_all_sales()
-        elif choise == '4':
-            print("Taking you to Search menu...\n")
+        elif choice == '4':
+            print("Taking you to the price list...\n")
             view_all_prices()
             break
-        elif choise == '5':
+        elif choice == '5':
             print("Taking you to Reset stock...")
             validate_reset()
             break
-        elif choise == '6':
+        elif choice == '6':
             print("Exit program...")
             exit_program()
             break
@@ -76,12 +76,20 @@ def get_sales_data():
     return update_worksheet_sales(sales_data)
 
 def view_all_prices():
+    """
+    Function to get prices from google sheet
+    and show them as a list
+    """
     get_all = SHEET.worksheet("price").get_all_records()
     for price in get_all:
         print_all_price(price)
     back_to_menu()
 
 def print_all_price(existing):
+    """
+    Function to get prices from google sheet
+    and print them on the screen
+    """
     all_prices = []
     for name, price in existing.items():
         print(f'{name}: {price}')
@@ -90,13 +98,24 @@ def print_all_price(existing):
 
 def view_all_stock():
     """
-    Function to get stock from google sheet
+    Function to get the stock from google sheet
     and show them as a list
     """
-    get_all = STOCK.get_all_records()
+    get_all = SHEET.worksheet("stock").get_all_records()
     for stock in get_all:
-        printing_all_stock(stock)
+        print_all_stock(stock)
     back_to_menu()
+
+def print_all_stock(existing):
+    """
+    Function to get the stock from google sheet
+    and print them on the screen
+    """
+    all_stock = []
+    for Product, Quantity in existing.items():
+        print(f'{Product}: {Quantity}')
+    print("-----------------------------------")
+    return all_stock
 
 def back_to_menu():
     """
