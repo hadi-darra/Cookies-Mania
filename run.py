@@ -64,9 +64,10 @@ def get_sales_data():
     while True:
         print("Please enter sales data from the last market.")
         print("Data should be six numbers, separated by commas.")
-        print("Dark Choco and Pistachio, Salted Dark Choco, White Choco, Caramel Choco Ship, Peanut, Cranberry")
+        print("Dark Choco and Pistachio, Salted Dark "
+              "Choco, White Choco, Caramel Choco Ship, Peanut, Cranberry")
         print("Example: 10,20,30,40,50,60\n ")
-    
+
         data_str = input("Enter your data here:\n")
 
         sales_data = data_str.split(",")
@@ -167,7 +168,8 @@ def reset_sales():
     """
     print("delete all sales...\n")
     SALES.clear()
-    values = ("Dark Choco and Pistachio","Salted Dark Choco","White Choco","Caramel Choco Ship","Peanut","Cranberry")
+    values = ("Dark Choco and Pistachio", "Salted Dark Choco",
+              "White Choco", "Caramel Choco Ship", "Peanut", "Cranberry")
     new_sheet = SALES.append_row(values)
     print("Sales are now reset")
     back_to_menu()
@@ -210,7 +212,7 @@ def view_all_sales():
     get_all = SALES.get_all_records()
     if get_all:
         for sales in get_all:
-             printing_all_sales(sales)
+            printing_all_sales(sales)
     else:
         print("Nothing to show")
     back_to_menu()
