@@ -11,6 +11,9 @@ CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('cookies_mania')
+STOCK = SHEET.worksheet('stock')
+SALES = SHEET.worksheet('sales')
+SURPLUS = SHEET.worksheet('surplus')
 
 def start():
     """
@@ -32,14 +35,14 @@ def start():
             break
         elif choise == '2':
             print("Taking you to Open the stock...\n")
-            show_all_contacts()
+            view_all_stock()
             break
         elif choise == '3':
             print("Taking you to Delete a contact...\n")
-            delete_menu()
+            view_all_sales()
         elif choise == '4':
             print("Taking you to Search menu...\n")
-            search_contact()
+            view_all_prices()
             break
         elif choise == '5':
             print("Taking you to Reset stock...")
@@ -88,6 +91,35 @@ def back_to_menu():
             back_to_menu()
             break
         return False
+def validate_reset():
+    """
+    Function for user to validate to reset the worksheet
+    so they dont do it by mistake
+    """
+    reset = input("Are you sure you want to reset? Y/N: \n")
+    while True:
+        if reset == 'Y' or reset == 'y':
+            reset_stock()
+            break
+        elif reset == "N" or reset == "n":
+            back_to_menu()
+            break
+        else:
+            print("Not a valid input, Try again!")
+            break
+        return False
+def reset_stock():
+    """
+    When user want to reset all contacts and delete the worksheet.
+    All values clear, but the headers/titles appear on the first row again.
+    """
+    print("delete all stock...\n")
+    STOCK.clear()
+    values = ("Dark Choco and Pistachio", "Salted Dark Choco", "Caramel Choco Ship", "Peanut ", "Cranberry")
+    new_sheet = STOCK.append_row(values)
+    print("Stock is now reset")
+    back_to_menu()
+    return new_sheet
 
 def validate_data(values):
     """
@@ -115,6 +147,15 @@ def update_worksheet_sales(sales_data):
     sales_worksheet = SHEET.worksheet("sales")
     sales_worksheet.append_row(sales_data)
     print("Sales worksheet updated successfully.\n")
+    back_to_menu()
+
+def view_all_sales():
+    """
+    Function to get all the sales from google sheet
+    """
+    get_all = SALES.get_all_records()
+    for contact in get_all:
+        printing_all_sales(sales)
     back_to_menu()
 
 def calculate_surplus_data(sales_row):
