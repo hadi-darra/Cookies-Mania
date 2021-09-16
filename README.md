@@ -43,7 +43,7 @@ As a developer of this app, my goals was..
 
 
 ## Structure
-![](https://github.com/hadi-darra/Cookies-Mania)
+![](https://github.com/hadi-darra/Cookies-Mania/blob/main/assets/wireframes/flow-chart.jpg)
 
 Structure of this programme is what you can see in the flowchart here. There is six different task from a menu that get the user to the function depending on what the user input. Every function has a way to get back to the menu or quit the programme after the task is done. 
 In the flowchart every function has a own colour just to make it easy to follow. 
