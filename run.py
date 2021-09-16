@@ -41,6 +41,7 @@ def start():
         elif choice == '3':
             print("Viewing the sales list...\n")
             view_all_sales()
+            break
         elif choice == '4':
             print("Viewing the price list...\n")
             view_all_prices()
