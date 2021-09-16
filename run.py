@@ -126,8 +126,8 @@ def print_all_stock(existing):
 
 def back_to_menu():
     """
-    Instead of get the whole menu after every task, user get a question if
-    they want to go back to menu or quit.
+    Instead of get the whole menu after every task, the user get a question if
+    he wants to go back to menu or quit.
     """
     while True:
         user_choise = input("Back to menu: M, Quit program: Q \n")
@@ -145,8 +145,8 @@ def back_to_menu():
 
 def validate_reset():
     """
-    Function for user to validate to reset the worksheet
-    so they dont do it by mistake
+    Function make sure that the user want to reset the data
+    and asking him for the confirmation
     """
     reset = input("Are you sure you want to reset? Y/N: \n")
     while True:
@@ -164,7 +164,7 @@ def validate_reset():
 
 def reset_stock():
     """
-    When user want to reset all stock and delete the worksheet.
+    When the user want to reset all stock and delete the worksheet.
     """
     print("delete all stock...\n")
     STOCK.clear()
