@@ -104,7 +104,7 @@ This is what I want to implement in future on this app to make it more complete.
 [Back to Top](https://github.com/hadi-darra/Cookies-Mania)
 # Testing
 ## Validator Testing
-When I checked my code for PEP8 requirements it's showed ALL RIGHT
+When I checked my code on  PEP8 it dosn't show any error.
 ![](https://github.com/hadi-darra/Cookies-Mania/blob/main/assets/wireframes/pep8online.png)
 
 [Back to Top](https://github.com/hadi-darra/Cookies-Mania)
