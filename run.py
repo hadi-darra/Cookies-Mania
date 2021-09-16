@@ -115,6 +115,7 @@ def update_worksheet_sales(sales_data):
     sales_worksheet = SHEET.worksheet("sales")
     sales_worksheet.append_row(sales_data)
     print("Sales worksheet updated successfully.\n")
+    back_to_menu()
 
 def calculate_surplus_data(sales_row):
     """
