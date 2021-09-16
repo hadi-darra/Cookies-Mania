@@ -70,7 +70,6 @@ def get_sales_data():
         data_str = input("Enter your data here:\n")
 
         sales_data = data_str.split(",")
-        
         if validate_data(sales_data):
             print("Data is valid!")
             break
@@ -130,11 +129,11 @@ def back_to_menu():
     he wants to go back to menu or quit.
     """
     while True:
-        user_choise = input("Back to menu: M, Quit program: Q \n")
-        if user_choise == "M" or user_choise == "m":
+        user_choice = input("Back to menu: M, Quit program: Q \n")
+        if user_choice == "M" or user_choice == "m":
             start()
             break
-        elif user_choise == "Q" or user_choise == "q":
+        elif user_choice == "Q" or user_choice == "q":
             exit_program()
         else:
             print("Invalid input, Try again")
@@ -216,9 +215,11 @@ def view_all_sales():
 
 def printing_all_sales(existing):
     """
-    Function that takes all the existing sales from worksheet
+    Function that print all the existing sales on the screen
     """
     sales = SHEET.worksheet("sales").get_all_values()
+    for Product in existing.items():
+        print(f'{Product}: ')
 
     print("-----------------------------------")
     return sales
@@ -285,10 +286,10 @@ def exit_program():
 
 def main():
     """
-    contains all the functions for the program
+    contains  the start function of the program
     """
     start()
-    
+
 
 print("   ___            _    _                                      _       ")
 print("  / __\___   ___ | | _(_) ___  ___    /\/\   __ _ _ __   __ _(_) __ _ ")
