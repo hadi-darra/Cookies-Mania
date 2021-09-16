@@ -19,19 +19,19 @@ def start():
     print("""
                 1. Add new sales\n\
                 2. View all stock\n\
-                3. Delete a sales\n\
-                4. Search contact\n\
+                3. View sales\n\
+                4. View prices\n\
                 5. Reset stock\n\
                 6. Exit\n
                     """)
     while True:
         choise = (input("Choose the number of the task you want to do: \n"))
         if choise == '1':
-            print("Taking you to Go Add new contact...\n")
-            add_new_contact()
+            print("Taking you to Go Add new sales...\n")
+            get_sales_data()
             break
         elif choise == '2':
-            print("Taking you to Open Contact Book...\n")
+            print("Taking you to Open the stock...\n")
             show_all_contacts()
             break
         elif choise == '3':
@@ -68,9 +68,25 @@ def get_sales_data():
         if validate_data(sales_data):
             print("Data is valid!")
             break
-
     return sales_data
 
+def back_to_menu():
+    """
+    Instead of get the whole menu after every task, user get a question if
+    they want to go back to menu or quit.
+    """
+    while True:
+        user_choise = input("Back to menu: M, Quit program: Q \n")
+        if user_choise == "M" or user_choise == "m":
+            start()
+            break
+        elif user_choise == "Q" or user_choise == "q":
+            exit_program()
+        else:
+            print("Invalid input, Try again")
+            back_to_menu()
+            break
+        return False
 
 def validate_data(values):
     """
@@ -160,6 +176,7 @@ def main():
     contains all the functions for the program
     """
     start()
+    """
     data = get_sales_data()
     sales_data = [int(num) for num in data]
     update_worksheet(sales_data, "sales")
@@ -168,6 +185,7 @@ def main():
     sales_columns = get_last_5_entries_sales()
     stock_data = calculate_stock_data(sales_columns)
     update_worksheet(stock_data, "stock")
+    """
 
 print("   ___            _    _                                      _       ")
 print("  / __\___   ___ | | _(_) ___  ___    /\/\   __ _ _ __   __ _(_) __ _ ")
