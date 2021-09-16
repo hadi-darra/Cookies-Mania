@@ -16,6 +16,7 @@ SALES = SHEET.worksheet('sales')
 SURPLUS = SHEET.worksheet('surplus')
 PRICE = SHEET.worksheet('price')
 
+
 def start():
     """
     Start menu that the user can choose between 6 different tasks.
@@ -31,22 +32,22 @@ def start():
     while True:
         choice = (input("Choose the number of the task you want to do: \n"))
         if choice == '1':
-            print("Taking you to Add new sales...\n")
+            print("Adding new sales...\n")
             get_sales_data()
             break
         elif choice == '2':
-            print("Taking you to Open the stock...\n")
+            print("Viewing the current stock...\n")
             view_all_stock()
             break
         elif choice == '3':
-            print("Taking you to View the sales list...\n")
+            print("Viewing the sales list...\n")
             view_all_sales()
         elif choice == '4':
-            print("Taking you to the price list...\n")
+            print("Viewing the price list...\n")
             view_all_prices()
             break
         elif choice == '5':
-            print("Taking you to Reset stock...")
+            print("Resetting the stock...")
             validate_reset()
             break
         elif choice == '6':
@@ -55,6 +56,7 @@ def start():
             break
         else:
             print("Not a valid input please enter a number 1-6")
+
 
 def get_sales_data():
     """
@@ -75,6 +77,7 @@ def get_sales_data():
 
     return update_worksheet_sales(sales_data)
 
+
 def view_all_prices():
     """
     Function to get prices from google sheet
@@ -84,6 +87,7 @@ def view_all_prices():
     for price in get_all:
         print_all_price(price)
     back_to_menu()
+
 
 def print_all_price(existing):
     """
@@ -96,6 +100,7 @@ def print_all_price(existing):
     print("-----------------------------------")
     return all_prices
 
+
 def view_all_stock():
     """
     Function to get the stock from google sheet
@@ -105,6 +110,7 @@ def view_all_stock():
     for stock in get_all:
         print_all_stock(stock)
     back_to_menu()
+
 
 def print_all_stock(existing):
     """
@@ -116,6 +122,7 @@ def print_all_stock(existing):
         print(f'{Product}: {Quantity}')
     print("-----------------------------------")
     return all_stock
+
 
 def back_to_menu():
     """
@@ -135,6 +142,7 @@ def back_to_menu():
             break
         return False
 
+
 def validate_reset():
     """
     Function for user to validate to reset the worksheet
@@ -153,6 +161,7 @@ def validate_reset():
             break
         return False
 
+
 def reset_stock():
     """
     When user want to reset all stock and delete the worksheet.
@@ -165,6 +174,7 @@ def reset_stock():
     back_to_menu()
     return new_sheet
 
+
 def validate_data(values):
     """
     Inside the try, converts all string values into integers.
@@ -174,24 +184,25 @@ def validate_data(values):
     try:
         [int(value) for value in values]
         if len(values) != 6:
-            raise ValueError(
-                f"Exactly 6 values required, you provided {len(values)}"
-            )
+            raise ValueError(f"Exactly 6 values required, you provided {len(values)}")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
 
     return True
 
+
 def update_worksheet_sales(sales_data):
     """
     Update sales worksheet, add new row with the list data provided
     """
+
     print("Updating sales worksheet...\n")
     sales_worksheet = SHEET.worksheet("sales")
     sales_worksheet.append_row(sales_data)
     print("Sales worksheet updated successfully.\n")
     back_to_menu()
+
 
 def view_all_sales():
     """
@@ -202,14 +213,16 @@ def view_all_sales():
         printing_all_sales(sales)
     back_to_menu()
 
+
 def printing_all_sales(existing):
     """
     Function that takes all the existing sales from worksheet
     """
     sales = SHEET.worksheet("sales").get_all_values()
-    
+
     print("-----------------------------------")
     return sales
+
 
 def calculate_surplus_data(sales_row):
     """
@@ -228,24 +241,7 @@ def calculate_surplus_data(sales_row):
         surplus_data.append(surplus)
 
     return surplus_data
-    
-def validate_data(values):
-    """
-    Inside the try, converts all string values into integers.
-    Raises ValueError if strings cannot be converted into int,
-    or if there aren't exactly 6 values.
-    """
-    try:
-        [int(value) for value in values]
-        if len(values) != 6:
-            raise ValueError(
-                f"Exactly 6 values required, you provided {len(values)}"
-            )
-    except ValueError as e:
-        print(f"Invalid data: {e}, please try again.\n")
-        return False
 
-    return True
 
 def get_last_5_entries_sales():
     """
@@ -260,6 +256,7 @@ def get_last_5_entries_sales():
         columns.append(column[-5:])
 
     return columns
+
 
 def calculate_stock_data(data):
     """
@@ -276,13 +273,15 @@ def calculate_stock_data(data):
 
     return new_stock_data
 
+
 def exit_program():
     """
-    Shutting down programme when user choose the exit task in menu
+    Shutting down program when the user choose the exit task in menu
     """
     print("-------------------------------------------------------")
     print("---------------Thanks for  using POS app---------------")
     print("-------------------------------------------------------")
+
 
 def main():
     """
