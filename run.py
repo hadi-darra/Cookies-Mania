@@ -22,7 +22,7 @@ def start():
     """
     print("""
                 1. Add new sales\n\
-                2. View all stock\n\
+                2. View all sales\n\
                 3. View sales\n\
                 4. View prices\n\
                 5. Reset sales\n\
