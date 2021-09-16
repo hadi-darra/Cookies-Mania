@@ -12,6 +12,46 @@ SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('cookies_mania')
 
+def start():
+    """
+    Start menu that the user can choose between 6 different tasks.
+    """
+    print("""
+                1. Add new sales\n\
+                2. View all stock\n\
+                3. Delete a sales\n\
+                4. Search contact\n\
+                5. Reset stock\n\
+                6. Exit\n
+                    """)
+    while True:
+        choise = (input("Choose the number of the task you want to do: \n"))
+        if choise == '1':
+            print("Taking you to Go Add new contact...\n")
+            add_new_contact()
+            break
+        elif choise == '2':
+            print("Taking you to Open Contact Book...\n")
+            show_all_contacts()
+            break
+        elif choise == '3':
+            print("Taking you to Delete a contact...\n")
+            delete_menu()
+        elif choise == '4':
+            print("Taking you to Search menu...\n")
+            search_contact()
+            break
+        elif choise == '5':
+            print("Taking you to Reset stock...")
+            validate_reset()
+            break
+        elif choise == '6':
+            print("Exit program...")
+            exit_program()
+            break
+        else:
+            print("Not a valid input please enter a number 1-6")
+
 def get_sales_data():
     """
     Get sales figures input from the user.
@@ -107,10 +147,19 @@ def calculate_stock_data(data):
 
     return new_stock_data
 
+def exit_program():
+    """
+    Shutting down programme when user choose the exit task in menu
+    """
+    print("-------------------------------------------------------")
+    print("---------------Thanks for  using POS app---------------")
+    print("-------------------------------------------------------")
+
 def main():
     """
-    Run all program functions
+    contains all the functions for the program
     """
+    start()
     data = get_sales_data()
     sales_data = [int(num) for num in data]
     update_worksheet(sales_data, "sales")
@@ -120,6 +169,13 @@ def main():
     stock_data = calculate_stock_data(sales_columns)
     update_worksheet(stock_data, "stock")
 
-print("Welcome to Love Sandwiches Data Automation")
+print("   ___            _    _                                      _       ")
+print("  / __\___   ___ | | _(_) ___  ___    /\/\   __ _ _ __   __ _(_) __ _ ")
+print(" / /  / _ \ / _ \| |/ / |/ _ \/ __|  /    \ / _` | '_ \ / _` | |/ _` |")
+print("/ /__| (_) | (_) |   <| |  __/\__ \ / /\/\ \ (_| | | | | (_| | | (_| |")
+print("\____/\___/ \___/|_|\_\_|\___||___/ \/    \/\__,_|_| |_|\__,_|_|\__,_|")
+print("                                                                      ")
+print("-----------------Please choose the number of the service--------------")
+print("                                                                      ")
 main()
 
