@@ -13,7 +13,6 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('cookies_mania')
 STOCK = SHEET.worksheet('stock')
 SALES = SHEET.worksheet('sales')
-SURPLUS = SHEET.worksheet('surplus')
 PRICE = SHEET.worksheet('price')
 
 
@@ -26,7 +25,7 @@ def start():
                 2. View all stock\n\
                 3. View sales\n\
                 4. View prices\n\
-                5. Reset stock\n\
+                5. Reset sales\n\
                 6. Exit\n
                     """)
     while True:
@@ -47,7 +46,7 @@ def start():
             view_all_prices()
             break
         elif choice == '5':
-            print("Resetting the stock...")
+            print("Resetting the sales...")
             validate_reset()
             break
         elif choice == '6':
@@ -150,7 +149,7 @@ def validate_reset():
     reset = input("Are you sure you want to reset? Y/N: \n")
     while True:
         if reset == 'Y' or reset == 'y':
-            reset_stock()
+            reset_sales()
             break
         elif reset == "N" or reset == "n":
             back_to_menu()
@@ -161,15 +160,16 @@ def validate_reset():
         return False
 
 
-def reset_stock():
+def reset_sales():
     """
     When the user want to reset all stock and delete the worksheet.
     """
-    print("delete all stock...\n")
-    STOCK.clear()
-    values = ("Dark Choco and Pistachio", "Salted Dark Choco", "Caramel Choco Ship", "Peanut ", "Cranberry")
-    new_sheet = STOCK.append_row(values)
-    print("Stock is now reset")
+    print("delete all sales...\n")
+    SALES.clear()
+    values = ("Dark Choco and Pistachio", "Salted Dark Choco",
+              "Caramel Choco Ship", "Peanut ", "Cranberry")
+    new_sheet = SALES.append_row(values)
+    print("Sales are now reset")
     back_to_menu()
     return new_sheet
 
@@ -183,7 +183,7 @@ def validate_data(values):
     try:
         [int(value) for value in values]
         if len(values) != 6:
-            raise ValueError(f"Exactly 6 values required, you provided {len(values)}")
+            raise ValueError(f"6 values required, you provided {len(values)}")
     except ValueError as e:
         print(f"Invalid data: {e}, please try again.\n")
         return False
@@ -225,56 +225,6 @@ def printing_all_sales(existing):
     return sales
 
 
-def calculate_surplus_data(sales_row):
-    """
-    Compare sales with stock and calculate the surplus for each item type.
-    The surplus is defined as the sales figure subtracted from the stock:
-    - Positive surplus indicates waste
-    - Negative surplus indicates extra made when stock was sold out.
-    """
-    print("Calculating surplus data...\n")
-    stock = SHEET.worksheet("stock").get_all_values()
-    stock_row = stock[-1]
-
-    surplus_data = []
-    for stock, sales in zip(stock_row, sales_row):
-        surplus = int(stock) - sales
-        surplus_data.append(surplus)
-
-    return surplus_data
-
-
-def get_last_5_entries_sales():
-    """
-    Collects columns of data from sales worksheet, collecting
-    the last 5 entries for each sandwich and returns the data
-    as a list of lists.
-    """
-    sales = SHEET.worksheet("sales")
-    columns = []
-    for ind in range(1, 7):
-        column = sales.col_values(ind)
-        columns.append(column[-5:])
-
-    return columns
-
-
-def calculate_stock_data(data):
-    """
-    Calculate the average stock for each item type, adding 10%
-    """
-    print("Calculating stock data...\n")
-    new_stock_data = []
-
-    for column in data:
-        int_column = [int(num) for num in column]
-        average = sum(int_column) / len(int_column)
-        stock_num = average * 1.1
-        new_stock_data.append(round(stock_num))
-
-    return new_stock_data
-
-
 def exit_program():
     """
     Shutting down program when the user choose the exit task in menu
@@ -286,7 +236,7 @@ def exit_program():
 
 def main():
     """
-    contains  the start function of the program
+    Contains  the start function of the program
     """
     start()
 
